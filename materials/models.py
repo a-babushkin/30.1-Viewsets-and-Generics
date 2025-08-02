@@ -56,7 +56,7 @@ class Lesson(models.Model):
         help_text="Введите ссылку на видео курса",
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, related_name="course", verbose_name="курс"
+        Course, on_delete=models.CASCADE, verbose_name="курс", related_name="lessons"
     )
 
     def __str__(self):
