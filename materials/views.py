@@ -1,15 +1,19 @@
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView, RetrieveAPIView,
                                      UpdateAPIView)
 from rest_framework.viewsets import ModelViewSet
 
+from materials.filters import CoursesFilter
 from materials.models import Course, Lesson
 from materials.serializer import CourseSerializer, LessonSerializer
 
 
 class CourseViewSet(ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().order_by("title")
     serializer_class = CourseSerializer
+    filterset_fields = ('id',)
 
 
 class LessonCreateApiView(CreateAPIView):
@@ -20,6 +24,7 @@ class LessonCreateApiView(CreateAPIView):
 class LessonListApiView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    filterset_fields = ('id', )
 
 
 class LessonRetrieveApiView(RetrieveAPIView):
