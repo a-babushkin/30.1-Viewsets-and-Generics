@@ -14,7 +14,7 @@ class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     filterset_fields = ('id',)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ["itle"]
+    ordering_fields = ["title"]
 
 
 class LessonCreateApiView(CreateAPIView):
@@ -27,7 +27,7 @@ class LessonListApiView(ListAPIView):
     serializer_class = LessonSerializer
     filterset_fields = ('id', )
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ["itle"]
+    ordering_fields = ["title"]
 
 class LessonRetrieveApiView(RetrieveAPIView):
     queryset = Lesson.objects.all()
