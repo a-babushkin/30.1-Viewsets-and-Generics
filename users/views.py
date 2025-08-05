@@ -23,4 +23,4 @@ class PaymentViewSet(ModelViewSet):
     queryset = Payment.objects.all().order_by("-payment_date")
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = PaymentFilter
-    ordering_fields = ["payment_date", "lessons__title", "course__lessons__title"]
+    ordering_fields = ["payment_date", "lesson__title", "course__lessons__title"]
