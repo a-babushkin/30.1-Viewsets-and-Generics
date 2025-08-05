@@ -12,9 +12,9 @@ from materials.serializer import CourseSerializer, LessonSerializer
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all().order_by("title")
     serializer_class = CourseSerializer
-    filterset_fields = ('id',)
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ["title"]
+    # filterset_fields = ('id',)
+    # filter_backends = [DjangoFilterBackend, OrderingFilter]
+    # ordering_fields = ["title"]
 
 
 class LessonCreateApiView(CreateAPIView):
@@ -25,9 +25,9 @@ class LessonCreateApiView(CreateAPIView):
 class LessonListApiView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    filterset_fields = ('id', )
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ["title"]
+    # filterset_fields = ('id', )
+    # filter_backends = [DjangoFilterBackend, OrderingFilter]
+    # ordering_fields = ["title"]
 
 class LessonRetrieveApiView(RetrieveAPIView):
     queryset = Lesson.objects.all()
