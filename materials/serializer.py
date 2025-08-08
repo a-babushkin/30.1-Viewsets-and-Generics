@@ -9,10 +9,11 @@ class LessonSerializer(ModelSerializer):
         model = Lesson
         fields = "__all__"
 
+
 class LessonsForCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ['id', 'title', 'description']
+        fields = ["id", "title", "description"]
 
 
 class CourseSerializer(ModelSerializer):
