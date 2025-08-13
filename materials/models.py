@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Course(models.Model):
     """Описание модели Курса"""
@@ -19,6 +21,13 @@ class Course(models.Model):
         null=True,
         help_text="Загрузите изображение курса",
         upload_to="uploads/",
+    )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="course",
+        verbose_name="Владелец",
     )
 
     def __str__(self):
@@ -57,6 +66,13 @@ class Lesson(models.Model):
     )
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, verbose_name="курс", related_name="lessons"
+    )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="lesson",
+        verbose_name="Владелец",
     )
 
     def __str__(self):
