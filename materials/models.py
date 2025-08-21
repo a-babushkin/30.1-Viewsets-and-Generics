@@ -3,6 +3,7 @@ from django.db import models
 from users.models import User
 
 
+# ===== Секция курсов ===============================================
 class Course(models.Model):
     """Описание модели Курса"""
 
@@ -39,6 +40,7 @@ class Course(models.Model):
         ordering = ["title"]
 
 
+# ===== Секция уроков ===============================================
 class Lesson(models.Model):
     """Описание модели Урока"""
 
@@ -82,3 +84,38 @@ class Lesson(models.Model):
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
         ordering = ["title"]
+
+
+# ===== Секция подписок ===============================================
+class Subscription(models.Model):
+    """Описание модели Подписка"""
+
+    subscripted = models.BooleanField(
+        verbose_name="Подписка",
+        blank=True,
+        null=True,
+        help_text="Подписка на курс",
+    )
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="subscription_course",
+        verbose_name="Подписанный курс",
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="subscription_user",
+        verbose_name="Пользователь",
+    )
+
+    def __str__(self):
+        return f"{self.user.email} subscribed to {self.course.title}"
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
+        ordering = ["course__title"]
+        unique_together = ("user", "course")
