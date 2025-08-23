@@ -23,6 +23,12 @@ class Course(models.Model):
         help_text="Загрузите изображение курса",
         upload_to="uploads/",
     )
+    price = models.PositiveIntegerField(
+        default=1000,
+        blank=True,
+        null=True,
+        verbose_name='Цена курса'
+    )
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
