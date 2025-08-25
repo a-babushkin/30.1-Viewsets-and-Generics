@@ -74,6 +74,18 @@ class Payment(models.Model):
         default="transfer",
         verbose_name="Способ оплаты",
     )
+    session_id = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name='ID сессии'
+    )
+    link = models.URLField(
+        max_length=400,
+        blank=True,
+        null=True,
+        verbose_name='Ссылка на оплату'
+    )
 
     def __str__(self):
         return f"Платеж {self.user.email}: {self.amount}"
