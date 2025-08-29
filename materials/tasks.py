@@ -1,11 +1,13 @@
 from celery import shared_task
-from materials.services import send_update_course, check_last_login_and_block
+
+from materials.services import check_last_login_and_block, send_update_course
 
 
 @shared_task
 def mail_update_course(pk):
     """Асинхронная рассылка писем пользователям об обновлении материалов курса"""
     send_update_course(pk)
+
 
 @shared_task
 def check_last_login():

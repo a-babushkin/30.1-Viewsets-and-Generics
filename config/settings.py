@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     "users",
     "materials",
     "drf_yasg",
-    'django_celery_beat'
+    "django_celery_beat",
 ]
 
 REST_FRAMEWORK = {

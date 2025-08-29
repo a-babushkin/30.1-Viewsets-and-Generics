@@ -1,12 +1,7 @@
 from rest_framework import status
-from rest_framework.generics import (
-    CreateAPIView,
-    DestroyAPIView,
-    ListAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
-    get_object_or_404,
-)
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView, get_object_or_404)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,6 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from materials.models import Course, Lesson, Subscription
 from materials.paginations import CustomPagination
 from materials.serializer import CourseSerializer, LessonSerializer
+from materials.tasks import mail_update_course
 from users.permissions import IsModerator, IsOwner
 
 
@@ -41,6 +37,11 @@ class CourseViewSet(ModelViewSet):
         elif self.action == "destroy":
             self.permission_classes = (~IsModerator | IsOwner,)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        updated_course = serializer.save()
+        updated_course.save()
+        mail_update_course.delay(updated_course.id)
 
 
 # ===== Секция уроков ===============================================

@@ -1,12 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
-from rest_framework.generics import (
-    CreateAPIView,
-    DestroyAPIView,
-    ListAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
-)
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 
@@ -14,7 +10,8 @@ from materials.models import Course
 from users.filters import PaymentFilter
 from users.models import Payment, User
 from users.serializer import PaymentSerializer, UserSerializer
-from users.services import create_stripe_product, create_stripe_price, create_stripe_session
+from users.services import (create_stripe_price, create_stripe_product,
+                            create_stripe_session)
 
 
 class PaymentViewSet(ModelViewSet):
@@ -26,7 +23,7 @@ class PaymentViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         payment = serializer.save(user=self.request.user)
-        course_id = self.request.data.get('course_id')
+        course_id = self.request.data.get("course_id")
         course = Course.objects.all().get(id=course_id)
         course_title = course.title
         course_price = course.price

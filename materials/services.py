@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 
 from config import settings
-from materials.models import Subscription, Course
+from materials.models import Course, Subscription
 from users.models import User
 
 logger = logging.getLogger(__name__)
@@ -25,11 +25,13 @@ def send_update_course(pk):
 
     from_email = settings.EMAIL_HOST_USER
     subject = "Обновление курса"
-    message = f'Курс {course_title} обновлен.'
+    message = f"Курс {course_title} обновлен."
 
     for subscription in course_subscriptions:
         if not subscription.user.email:
-            logger.warning(f"У получателя {subscription} отсутствует действительный адрес электронной почты.")
+            logger.warning(
+                f"У получателя {subscription} отсутствует действительный адрес электронной почты."
+            )
             break
         try:
             send_mail(subject, message, from_email, [subscription.user.email])
@@ -49,6 +51,6 @@ def check_last_login_and_block():
         if today - user.last_login > timedelta(days=30):
             user.is_active = False
             user.save()
-            print(f'Пользователь {user.email} не входил больше месяца и отключен')
+            print(f"Пользователь {user.email} не входил больше месяца и отключен")
         else:
             print("OK!")

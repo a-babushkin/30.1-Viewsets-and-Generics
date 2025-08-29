@@ -75,16 +75,10 @@ class Payment(models.Model):
         verbose_name="Способ оплаты",
     )
     session_id = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name='ID сессии'
+        max_length=255, blank=True, null=True, verbose_name="ID сессии"
     )
     link = models.URLField(
-        max_length=400,
-        blank=True,
-        null=True,
-        verbose_name='Ссылка на оплату'
+        max_length=400, blank=True, null=True, verbose_name="Ссылка на оплату"
     )
 
     def __str__(self):
