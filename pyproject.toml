@@ -23,6 +23,7 @@ stripe = "^12.4.0"
 celery = "^5.5.3"
 redis = "^6.4.0"
 django-celery-beat = "^2.8.1"
+eventlet = "^0.40.3"
 
 [tool.poetry.group.dev.dependencies]
 

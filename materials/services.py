@@ -1,9 +1,9 @@
 import logging
 import os
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 from django.core.mail import send_mail
-from django.utils import timezone
+# from django.utils import timezone
 
 from config import settings
 from materials.models import Course, Subscription
@@ -44,13 +44,24 @@ def send_update_course(pk):
 
 
 def check_last_login_and_block():
-    """Проверка последнего входа пользователей и отключение неактивных пользователей"""
+    """
+    Проверка последнего входа пользователей и отключение неактивных пользователей.
+    Если пользователь не заходил более 30 дней, его аккаунт деактивируется.
+    """
     users = User.objects.exclude(last_login__isnull=True)
-    today = timezone.now().today()
+    now = datetime.now(timezone.utc)  # Правильно объявляем текущее время в UTC
+    today = now.date()
+
     for user in users:
-        if today - user.last_login > timedelta(days=30):
+        # Приводим последнее время входа к UTC
+        last_login_in_utc = user.last_login.astimezone(timezone.utc)
+
+        # Вычисляем разницу в днях
+        delta = today - last_login_in_utc.date()
+
+        if delta.days > 30:
             user.is_active = False
             user.save()
-            print(f"Пользователь {user.email} не входил больше месяца и отключен")
+            print(f"Пользователь {user.email} не входил больше месяца и отключён.")
         else:
-            print("OK!")
+            print("Пользователь активен.")
