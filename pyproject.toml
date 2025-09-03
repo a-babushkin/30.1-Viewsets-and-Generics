@@ -1,28 +1,31 @@
-[project]
+[tool.poetry]
 name = "drf-project-8"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "a-babushkin",email = "a.babushkin42@gmail.com"}
-]
+authors = ["a-babushkin <a.babushkin42@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-    "django (>=5.2.4,<6.0.0)",
-    "djangorestframework (>=3.16.0,<4.0.0)",
-    "dotenv (>=0.9.9,<0.10.0)",
-    "python-dotenv (>=1.1.1,<2.0.0)",
-    "psycopg2-binary (>=2.9.10,<3.0.0)",
-    "pillow (>=11.3.0,<12.0.0)",
-    "isort (>=6.0.1,<7.0.0)",
-    "black (>=25.1.0,<26.0.0)",
-    "flake8 (>=7.3.0,<8.0.0)",
-    "django-filter (>=25.1,<26.0)",
-    "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
-    "drf-yasg (>=1.21.10,<2.0.0)",
-    "stripe (>=12.4.0,<13.0.0)"
-]
 
+[tool.poetry.dependencies]
+python = ">=3.13,<4.0"  # Добавьте верхнюю границу
+django = "^5.2.4"
+djangorestframework = "^3.16.0"
+dotenv = "^0.9.9"
+python-dotenv = "^1.1.1"
+psycopg2-binary = "^2.9.10"
+pillow = "^11.3.0"
+isort = "^6.0.1"
+black = "^25.1.0"
+flake8 = "^7.3.0"
+django-filter = "^25.1"
+djangorestframework-simplejwt = "^5.5.1"
+drf-yasg = "^1.21.10"
+stripe = "^12.4.0"
+celery = "^5.5.3"
+redis = "^6.4.0"
+django-celery-beat = "^2.8.1"
+eventlet = "^0.40.3"
+
+[tool.poetry.group.dev.dependencies]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

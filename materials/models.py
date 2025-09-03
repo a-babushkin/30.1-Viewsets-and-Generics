@@ -24,10 +24,7 @@ class Course(models.Model):
         upload_to="uploads/",
     )
     price = models.PositiveIntegerField(
-        default=1000,
-        blank=True,
-        null=True,
-        verbose_name='Цена курса'
+        default=1000, blank=True, null=True, verbose_name="Цена курса"
     )
     owner = models.ForeignKey(
         User,
